@@ -1,4 +1,0 @@
-opencv-python
-facedetector-py
-filetype
-numpy

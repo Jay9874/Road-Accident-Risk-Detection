@@ -1,0 +1,10 @@
+/output/
+extract/output
+/venv/
+/.pytest_cache/
+__pycache__/
+
+bin
+include
+lib
+pyvenv.cfg
