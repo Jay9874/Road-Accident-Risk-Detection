@@ -1,4 +1,6 @@
-/output/
+/face/
+/eye/
+
 extract/output
 /venv/
 /.pytest_cache/

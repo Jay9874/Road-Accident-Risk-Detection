@@ -1,9 +1,10 @@
-# Face Extract
-
-![Illustration of how face-extractor works](illustration.png)
+# Road Accident Risk Detection
 
 Python script that detect faces on the image or video, extracts them and saves to the specified folder.
-Original author [freearhey](https://github.com/freearhey).
+Original author [freearhey](https://github.com/freearhey/face-extractor).
+
+After the face has been extracted, the eye is too extracted from the face.
+Original author [edge7](https://github.com/edge7/Eye-Region-Extraction-Toolbox).
 
 ## Prerequisites
 Python 3.9.20
@@ -30,13 +31,17 @@ And you're done.
 
 ## Demo
 
+```sh
+python main.py
+```
+
+## Usage - extract.py
+
 In the `input` folder you can find several images that can be processed using the script, like so:
 
 ```sh
 python extract.py --input input
 ```
-
-## Usage
 
 To run the script you need to pass only the path to the image that need to be processed, as well as the path to the folder where the extracted faces will be saved.
 

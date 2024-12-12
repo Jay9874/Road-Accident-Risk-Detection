@@ -128,7 +128,7 @@ if __name__ == "__main__":
   
   # options
   parser.add_argument("-i", "--input", required=True, help="path to input directory or file")
-  parser.add_argument("-o", "--output", default="output/", help="path to output directory")
+  parser.add_argument("-o", "--output", default="face/", help="path to output directory")
   parser.add_argument("-p", "--padding", default=1.0, help="padding ratio around the face (default: 1.0)")
   
   args = vars(parser.parse_args())
