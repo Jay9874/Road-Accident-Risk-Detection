@@ -12,7 +12,7 @@ Original author [infoaryan](https://github.com/infoaryan/Driver-Drowsiness-Detec
 ## Prerequisites
 - Python 3.9.20
 
-- Download face landmark dataset from [kaggle](https://www.kaggle.com/datasets/sergiovirahonda/shape-predictor-68-face-landmarksdat) or [GitHub](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat) and place it in root directory.
+- Download face landmark dataset from [GitHub](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat)/[Hugging Face](https://huggingface.co/spaces/asdasdasdasd/Face-forgery-detection/blob/ccfc24642e0210d4d885bc7b3dbc9a68ed948ad6/shape_predictor_68_face_landmarks.dat)/[kaggle](https://www.kaggle.com/datasets/sergiovirahonda/shape-predictor-68-face-landmarksdat) and place it in root directory.
 
 ## Installation
 

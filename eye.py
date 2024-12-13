@@ -2,8 +2,8 @@ import os
 import cv2
 import mediapipe as mp
 
-face_dir = "face"
-eye_dir = "eye"
+face_dir = "output/face"
+eye_dir = "output/eye"
 os.makedirs(eye_dir, exist_ok=True)
 
 face_mesh = mp.solutions.face_mesh.FaceMesh(

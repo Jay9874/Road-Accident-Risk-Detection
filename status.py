@@ -4,8 +4,8 @@ import numpy as np
 import dlib
 from imutils import face_utils
 
-face_dir = "face"
-status_dir = "status"
+face_dir = "output/face"
+status_dir = "output/status"
 os.makedirs(status_dir, exist_ok=True)
 
 predictor_path = "shape_predictor_68_face_landmarks.dat"
