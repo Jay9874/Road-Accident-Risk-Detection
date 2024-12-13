@@ -10,7 +10,9 @@ Using the face, the facial expression is recorded and stored in status.
 Original author [infoaryan](https://github.com/infoaryan/Driver-Drowsiness-Detection)
 
 ## Prerequisites
-Python 3.9.20
+- Python 3.9.20
+
+- Download face landmark dataset from [kaggle](https://www.kaggle.com/datasets/sergiovirahonda/shape-predictor-68-face-landmarksdat) or [GitHub](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat) and place it in root directory.
 
 ## Installation
 
