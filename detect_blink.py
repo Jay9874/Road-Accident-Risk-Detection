@@ -27,6 +27,7 @@ def eye_aspect_ratio(eye):
     # return the eye aspect ratio
     return ear
 
+
 # frames the eye must be below the threshold
 EYE_AR_THRESH = 0.35
 EYE_AR_CONSEC_FRAMES = 3
@@ -34,6 +35,7 @@ EYE_AR_CONSEC_FRAMES = 3
 # initialize the frame counters and the total number of blinks
 COUNTER = 0
 TOTAL = 0
+open_eye = True
 
 # initialize dlib's face detector (HOG-based) and then create
 # the facial landmark predictor
@@ -46,7 +48,8 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-vs = VideoStream(src=0).start()
+# vs = VideoStream(src=0).start()
+vs = cv2.VideoCapture('./input/driving.mp4')
 # vs = VideoStream(usePiCamera=True).start()
 time.sleep(1.0)
 
@@ -58,7 +61,7 @@ while True:
     # grab the frame from the threaded video file stream, resize
     # it, and convert it to grayscale
     # channels)
-    frame = vs.read()
+    st, frame = vs.read()
     frame = imutils.resize(frame, width=450)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -81,7 +84,7 @@ while True:
         rightEAR = eye_aspect_ratio(rightEye)
 
         # average the eye aspect ratio together for both eyes
-        ear = (leftEAR + rightEAR)
+        ear = leftEAR + rightEAR
 
         # compute the convex hull for the left and right eye, then
         # visualize each of the eyes
@@ -93,19 +96,68 @@ while True:
         # check to see if the eye aspect ratio is below the blink
         # threshold, and if so, increment the blink frame counter
         if ear < EYE_AR_THRESH:
-            cv2.putText(frame, "Eye: {}".format("close"), (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-            cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-
+            COUNTER += 1
+            cv2.putText(
+                frame,
+                "Eye: {}".format("Close"),
+                (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2,
+            )
+            cv2.putText(
+                frame,
+                "EAR: {:.2f}".format(ear),
+                (300, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2,
+            )
+            cv2.putText(
+                frame,
+                "Blink: {}".format(TOTAL),
+                (150, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2,
+            )
 
         # otherwise, the eye aspect ratio is not below the blink
         # threshold
         else:
-            cv2.putText(frame, "Eye: {}".format("Open"), (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-            cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            if COUNTER >= EYE_AR_CONSEC_FRAMES:
+                TOTAL += 1
+            COUNTER = 0
+            cv2.putText(
+                frame,
+                "Eye: {}".format("Open"),
+                (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2,
+            )
+            cv2.putText(
+                frame,
+                "EAR: {:.2f}".format(ear),
+                (300, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2,
+            )
+            cv2.putText(
+                frame,
+                "Blink: {}".format(TOTAL),
+                (150, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 0, 255),
+                2,
+            )
 
     # draw the total number of blinks on the frame along with
     # the computed eye aspect ratio for the frame
@@ -113,7 +165,7 @@ while True:
     # show the frame
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
-
+    print(f"The number of blink is: {TOTAL}")
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         break
