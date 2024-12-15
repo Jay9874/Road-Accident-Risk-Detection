@@ -48,8 +48,8 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-# vs = VideoStream(src=0).start()
-vs = cv2.VideoCapture('./input/driving.mp4')
+vs = VideoStream(src=0).start()
+# vs = cv2.VideoCapture('./input/driving.mp4')
 # vs = VideoStream(usePiCamera=True).start()
 time.sleep(1.0)
 
@@ -61,7 +61,7 @@ while True:
     # grab the frame from the threaded video file stream, resize
     # it, and convert it to grayscale
     # channels)
-    st, frame = vs.read()
+    frame = vs.read()
     frame = imutils.resize(frame, width=450)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
