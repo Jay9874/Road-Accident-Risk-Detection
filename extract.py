@@ -60,6 +60,7 @@ def main(args):
     outputDir = os.path.abspath(output)
 
     images = []
+    eyelidsPos = []
     for file in files:
         dir, path, mime, filename = file.values()
 
