@@ -1,4 +1,6 @@
 /output/
+shape_predictor_68_face_landmarks.dat
+
 extract/output
 /venv/
 /.pytest_cache/
