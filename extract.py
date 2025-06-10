@@ -130,7 +130,6 @@ def main(args):
     for i, image in enumerate(images):
         print("[INFO] processing image {}/{}".format(i + 1, len(images)))
         faces = FaceDetector.detect(image["file"])
-
         array = cv2.cvtColor(image["file"], cv2.COLOR_BGR2RGB)
         img = Image.fromarray(array)
 
