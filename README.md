@@ -1,12 +1,18 @@
-# Face Extract
-
-![Illustration of how face-extractor works](illustration.png)
+# Road Accident Risk Detection
 
 Python script that detect faces on the image or video, extracts them and saves to the specified folder.
-Original author [freearhey](https://github.com/freearhey).
+Original author [freearhey](https://github.com/freearhey/face-extractor).
+
+After the face has been extracted, the eye is too extracted from the face.
+Original author [edge7](https://github.com/edge7/Eye-Region-Extraction-Toolbox).
+
+Using the face, the facial expression is recorded and stored in status.
+Original author [infoaryan](https://github.com/infoaryan/Driver-Drowsiness-Detection)
 
 ## Prerequisites
-Python 3.9.20
+- Python 3.9.20
+
+- Download face landmark dataset from [GitHub](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat)/[Hugging Face](https://huggingface.co/spaces/asdasdasdasd/Face-forgery-detection/blob/ccfc24642e0210d4d885bc7b3dbc9a68ed948ad6/shape_predictor_68_face_landmarks.dat)/[kaggle](https://www.kaggle.com/datasets/sergiovirahonda/shape-predictor-68-face-landmarksdat) and place it in root directory.
 
 ## Installation
 
@@ -30,13 +36,17 @@ And you're done.
 
 ## Demo
 
+```sh
+python main.py
+```
+
+## Usage - extract.py
+
 In the `input` folder you can find several images that can be processed using the script, like so:
 
 ```sh
 python extract.py --input input
 ```
-
-## Usage
 
 To run the script you need to pass only the path to the image that need to be processed, as well as the path to the folder where the extracted faces will be saved.
 

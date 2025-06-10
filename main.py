@@ -1,69 +1,56 @@
-import cv2
-import time
+import subprocess
 import os
-import numpy as np
-from tensorflow.keras.models import load_model
 
-# Load model and face detector
-model = load_model("./eye_status_cnn_model.h5")
-face_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-)
+def run_extract_script():
+    extract_command = ["python", "extract.py", "--input", "input"]
+    print("Running extract.py...")
+    result = subprocess.run(extract_command, capture_output=True, text=True)
 
-# Create save directory
-save_dir = "face_classified"
-os.makedirs(save_dir, exist_ok=True)
+    if result.returncode != 0:
+        print("Error running extract.py:")
+        print(result.stderr)
+        return False
 
-# Start webcam
-cap = cv2.VideoCapture(0)
+    print("extract.py completed successfully.")
+    return True
 
-print("Detecting face and classifying eyes every second. Press 'q' to quit.")
+def run_eye_script():
+    eye_command = ["python", "eye.py"]
+    print("Running eye.py...")
+    result = subprocess.run(eye_command, capture_output=True, text=True)
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
+    if result.returncode != 0:
+        print("Error running eye.py:")
+        print(result.stderr)
+        return False
 
-    # Convert to grayscale for face detection
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    print("eye.py completed successfully.")
+    return True
 
-    # Detect faces
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+def run_status_script():
+    status_command = ["python", "status.py"]
+    print("Running status.py...")
+    result = subprocess.run(status_command, capture_output=True, text=True)
 
-    for x, y, w, h in faces:
-        # Crop the face
-        face_img = frame[y : y + h, x : x + w]
+    if result.returncode != 0:
+        print("Error running status.py:")
+        print(result.stderr)
+        return False
 
-        # Preprocess for model
-        resized = cv2.resize(face_img, (128, 128))
-        norm = resized / 255.0
-        input_img = np.expand_dims(norm, axis=0)
+    print("status.py completed successfully.")
+    return True
 
-        # Predict
-        pred = model.predict(input_img)[0][0]
-        print(f"The output of model: {model.predict(input_img)}\n")
-        print(f"The prediction is: {model.predict(input_img)[0][0]}\n")
-        label = "Open" if pred > 0.5 else "Closed"
+if __name__ == "__main__":
+    if not run_extract_script():
+        print("Aborting due to extract.py failure.")
+        exit(1)
 
-        # Draw rectangle and label
-        color = (0, 255, 0) if label == "Open" else (0, 0, 255)
-        cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-        cv2.putText(
-            frame, f"{label}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2
-        )
+    if not run_eye_script():
+        print("Aborting due to eye.py failure.")
+        exit(1)
 
-        # Save the cropped face image
-        timestamp = int(time.time())
-        filename = f"{save_dir}/{label}_{timestamp}.jpg"
-        cv2.imwrite(filename, face_img)
-        print(f"[{label}] Saved: {filename}")
+    if not run_status_script():
+        print("Aborting due to status.py failure.")
+        exit(1)
 
-    # Show full frame
-    cv2.imshow("Eye State Detection", frame)
-
-    # Wait 1 second or exit on 'q'
-    if cv2.waitKey(1000) & 0xFF == ord("q"):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
+    print("All scripts executed successfully.")
