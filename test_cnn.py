@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 model = load_model("./eye_status_cnn_model.h5")
 
 # Load the image
-image_path = "face_classified/Closed_1749574500.jpg"
+image_path = "images/face_1.jpg"
 img = cv2.imread(image_path)
 
 # Optional: Show original image
