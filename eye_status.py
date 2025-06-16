@@ -150,7 +150,7 @@ while True:
 
     cv2.imshow("Eye State Detection", frame)  # Display the frame
 
-    if cv2.waitKey(1000) & 0xFF == ord("q"):  # Press 'q' to quit
+    if cv2.waitKey(500) & 0xFF == ord("q"):  # Press 'q' to quit
         break
 
 # Release resources
