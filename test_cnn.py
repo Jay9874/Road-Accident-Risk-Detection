@@ -3,10 +3,10 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 # Load your trained model
-model = load_model("./eye_status_cnn_model.h5")
+model = load_model("./cnn.h5")
 
 # Load the image
-image_path = "images/face_1.jpg"
+image_path = "images/test.jpg"
 img = cv2.imread(image_path)
 
 # Optional: Show original image
