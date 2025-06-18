@@ -1,18 +1,11 @@
 # Road Accident Risk Detection
+A project to detect risk while driving. Incorporates dashboard camera feed for live video and used CNN to detect risk associated either drunk drive, over speeding, fragile driving, and more. Future version will take advantage of CCTV cameras installed on traffic light post to achieve full functionality.
 
-Python script that detect faces on the image or video, extracts them and saves to the specified folder.
-Original author [freearhey](https://github.com/freearhey/face-extractor).
-
-After the face has been extracted, the eye is too extracted from the face.
-Original author [edge7](https://github.com/edge7/Eye-Region-Extraction-Toolbox).
-
-Using the face, the facial expression is recorded and stored in status.
-Original author [infoaryan](https://github.com/infoaryan/Driver-Drowsiness-Detection)
 
 ## Prerequisites
-- Python 3.9.20
-
-- Download face landmark dataset from [GitHub](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat)/[Hugging Face](https://huggingface.co/spaces/asdasdasdasd/Face-forgery-detection/blob/ccfc24642e0210d4d885bc7b3dbc9a68ed948ad6/shape_predictor_68_face_landmarks.dat)/[kaggle](https://www.kaggle.com/datasets/sergiovirahonda/shape-predictor-68-face-landmarksdat) and place it in root directory.
+- Python 3.12.9
+- Dlib 19.24.6
+- C++ Compiler
 
 ## Installation
 
@@ -28,49 +21,19 @@ Then you need to go to the project folder and install all the dependencies:
 # change directory
 cd Road-Accident-Risk-Detection
 
+# Create a virtual environment
+    1. python -m venv .
+    - For MacOS/Linux
+        2. source ./bin/activate
+    - For Windows
+        2. .\Scripts\activate.bat
+    
 # install dependencies
 pip install -r requirements.txt
 ```
 
-And you're done.
+And you're done. Explore running files with 
+```python <filepath>.py```
 
 ## Demo
-
-```sh
-python main.py
-```
-
-## Usage - extract.py
-
-In the `input` folder you can find several images that can be processed using the script, like so:
-
-```sh
-python extract.py --input input
-```
-
-To run the script you need to pass only the path to the image that need to be processed, as well as the path to the folder where the extracted faces will be saved.
-
-```sh
-python extract.py --input path/to/image.jpg --output path/to/output_folder
-```
-
-The video file can also be used as the input:
-
-```sh
-python extract.py --input path/to/video.mp4 --output path/to/output_folder
-```
-
-Or it could be a folder containing these files:
-
-```sh
-python extract.py --input path/to/folder_with_images
-```
-
-By default, the files are saved in the `output` folder.
-
-**Arguments:**
-
-- `-h, --help`: show this help message and exit
-- `-i, --input`: path to input directory or file
-- `-o, --output`: path to output directory of faces
-- `-p, --padding`: padding ratio around the face (default: 1.0)
+Yet to implement.
