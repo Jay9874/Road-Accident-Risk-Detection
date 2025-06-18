@@ -49,7 +49,7 @@ RECIPIENT_PHONE_NUMBER = os.getenv(
 )  # The phone number to send the alert to (must be verified in Twilio trial)
 
 # --- Drowsiness Alert Logic ---
-TARGET_DROWSINESS_DURATION_SECONDS = 2 # Desired duration in seconds to trigger alert
+TARGET_DROWSINESS_DURATION_SECONDS = 5  # Desired duration in seconds to trigger alert
 DROWSINESS_FRAME_THRESHOLD = 0  # This will be calculated dynamically based on FPS
 drowsy_frame_count = 0
 alert_sent = False  # Flag to prevent sending multiple alerts immediately
@@ -146,7 +146,7 @@ if camera_fps > 0:
     DROWSINESS_FRAME_THRESHOLD = int(TARGET_DROWSINESS_DURATION_SECONDS * camera_fps)
     print(f"Camera FPS: {camera_fps:.2f}")
     print(
-        f"Drowsiness alert will trigger after {TARGET_DROWSINESS_DURATION_SECONDS} seconds ({DROWSINESS_FRAME_THRESHOLD} consecutive frames)."
+        f"Drowsiness alert will trigger after({DROWSINESS_FRAME_THRESHOLD} consecutive frames)."
     )
 else:
     print(
@@ -344,18 +344,18 @@ while True:
         elif eyes_closed_this_frame:
             overall_drowsiness_status = "Eyes Closed (Possible Drowsiness)"
             status_color = (0, 165, 255)  # Orange for eyes closed
-            drowsy_frame_count += 1
+            drowsy_frame_count = 0
         elif yawn_detected_this_frame:
             overall_drowsiness_status = "Yawning (Possible Drowsiness)"
             status_color = (0, 165, 255)  # Orange for yawning
-            drowsy_frame_count += 1
+            drowsy_frame_count = 0
         else:  # Not drowsy this frame
             drowsy_frame_count = 0  # Reset counter if not drowsy
             alert_sent = False  # Allow new alerts once user is alert again
 
         cv2.putText(
             frame,
-            overall_drowsiness_status,
+            f"status: {overall_drowsiness_status} df: {drowsy_frame_count}",
             (x_face, y_face - 30),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.7,
@@ -366,7 +366,7 @@ while True:
         # Check for alert trigger
         if (
             DROWSINESS_FRAME_THRESHOLD > 0
-            and drowsy_frame_count >= DROWSINESS_FRAME_THRESHOLD
+            and drowsy_frame_count >= 30
             and not alert_sent
         ):
             print(
@@ -404,7 +404,7 @@ while True:
     cv2.imshow("Live Drowsiness Detection", frame)
 
     # Exit loop if 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord("q"):
+    if cv2.waitKey(100) & 0xFF == ord("q"):
         break
 
 # Release the camera and destroy all OpenCV windows
