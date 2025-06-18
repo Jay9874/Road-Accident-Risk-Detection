@@ -36,4 +36,7 @@ And you're done. Explore running files with
 ```python <filepath>.py```
 
 ## Demo
-Yet to implement.
+```sh
+# run the main file
+python main.py
+```
