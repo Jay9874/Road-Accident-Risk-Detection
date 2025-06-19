@@ -366,7 +366,7 @@ while True:
         # Check for alert trigger
         if (
             DROWSINESS_FRAME_THRESHOLD > 0
-            and drowsy_frame_count >= 10
+            and drowsy_frame_count >= 30
             and not alert_sent
         ):
             print(

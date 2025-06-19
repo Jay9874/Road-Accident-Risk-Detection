@@ -14,3 +14,4 @@ share
 pyvenv.cfg
 processed_yawn_dataset
 .env
+data

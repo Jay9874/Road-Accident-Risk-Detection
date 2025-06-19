@@ -40,3 +40,6 @@ And you're done. Explore running files with
 # run the main file
 python main.py
 ```
+
+# Training steps
+1. Eye status
